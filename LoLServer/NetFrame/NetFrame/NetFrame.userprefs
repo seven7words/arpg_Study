@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="New Folder/ServerStart.cs">
+    <Files>
+      <File FileName="New Folder/UserToken.cs" Line="13" Column="28" />
+      <File FileName="New Folder/UserTokenPool.cs" Line="22" Column="14" />
+      <File FileName="New Folder/ServerStart.cs" Line="69" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
