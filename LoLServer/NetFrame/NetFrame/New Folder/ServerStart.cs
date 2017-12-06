@@ -28,9 +28,9 @@ namespace NetFrame{
             for (int i = 0; i < max;i++){
                 UserToken token = new UserToken();
                 //初始化token信息
-                token.receiveSAEA = new SocketAsyncEventArgs();
+
                 token.receiveSAEA.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Completed);
-                token.sendSAEA = new SocketAsyncEventArgs();
+
 				token.sendSAEA.Completed +=new EventHandler<SocketAsyncEventArgs>(IO_Completed);
                 pool.Push(token);
             }
@@ -80,7 +80,12 @@ namespace NetFrame{
             ProcessAccept(e);
         }
         public void StartReceive(UserToken token){
-            token.conn.ReceiveAsync(token.receiveSAEA);
+            //用户连接对象开启异步数据接受
+            bool result=token.conn.ReceiveAsync(token.receiveSAEA);
+            //异步事件是否挂起
+            if(!result){
+                ProcessReceive(token.receiveSAEA); 
+            }
         }
 
 		public void IO_Completed(object sender, SocketAsyncEventArgs e)
@@ -93,12 +98,48 @@ namespace NetFrame{
 			ProcessAccept(e);
 		}
         public void ProcessReceive(SocketAsyncEventArgs e){
-            
+            UserToken token = e.UserToken as UserToken;
+            if(token.receiveSAEA.BytesTransferred>0&&token.receiveSAEA.SocketError==SocketError.Success){
+                byte[] message =new byte[token.receiveSAEA.BytesTransferred];
+                Buffer.BlockCopy(token.receiveSAEA.Buffer,0,message,0,token.receiveSAEA.BytesTransferred);
+                //处理接收到的消息
+                token.Receive(message);
+                StartReceive(token);
+
+            }else{
+                if(token.receiveSAEA.SocketError!=SocketError.Success){
+                    ClientClose(token,token.receiveSAEA.SocketError.ToString());
+                }else{
+                    ClientClose(token,"客户端主动断开连接");
+                }
+            }
         }
 		public void ProcessSend(SocketAsyncEventArgs e)
 		{
-
+            UserToken token = e.UserToken as UserToken;
+            if(e.SocketError!=SocketError.Success){
+                ClientClose(token, e.SocketError.ToString());
+            }else{
+                //消息发送成功，回调成功
+                token.Writed();
+            }
 		}
+        /// <summary>
+        /// 客户端断开连接
+        /// </summary>
+        /// <param name="token">Token.断开连接的用户对象</param>
+        /// <param name="error">Error.断开连接的错误编码</param>
+        public void ClientClose(UserToken token,string error){
+            if(token.conn!=null){
+                lock(token){
+                    //通知应用层面客户端断开连接
+                    token.Close();
+                    //加回一个信号量，供其他用户使用
+                    pool.Push(token);
+                    acceptClients.Release();
+                }
+            }
+        }
     }   
 }
  
