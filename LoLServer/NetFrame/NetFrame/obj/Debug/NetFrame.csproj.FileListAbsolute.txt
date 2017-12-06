@@ -1,0 +1,5 @@
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/NetFrame/NetFrame/bin/Debug/NetFrame.dll
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/NetFrame/NetFrame/bin/Debug/NetFrame.pdb
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/NetFrame/NetFrame/obj/Debug/NetFrame.csproj.CoreCompileInputs.cache
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/NetFrame/NetFrame/obj/Debug/NetFrame.dll
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/NetFrame/NetFrame/obj/Debug/NetFrame.pdb

@@ -1,0 +1,6 @@
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/LoLServer/bin/Debug/LoLServer.exe
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/LoLServer/bin/Debug/LoLServer.pdb
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/LoLServer/obj/x86/Debug/LoLServer.csprojResolveAssemblyReference.cache
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/LoLServer/obj/x86/Debug/LoLServer.csproj.CoreCompileInputs.cache
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/LoLServer/obj/x86/Debug/LoLServer.exe
+/Users/sevenqizai/Desktop/Study_ARPG/LoLServer/LoLServer/obj/x86/Debug/LoLServer.pdb
