@@ -1,1 +1,9 @@
 D:\courseProject\LoLServer\LOLServer\LOLServer\bin\Debug\LOLServer.exe.config
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\LOLServer.exe.config
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\LOLServer.exe
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\LOLServer.pdb
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\NetFrame.dll
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\NetFrame.pdb
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\obj\Debug\LOLServer.csprojResolveAssemblyReference.cache
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\obj\Debug\LOLServer.exe
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\obj\Debug\LOLServer.pdb

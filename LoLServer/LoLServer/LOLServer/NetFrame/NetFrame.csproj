@@ -39,13 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsHandlerCenter.cs" />
     <Compile Include="auto\LengthEncoding.cs" />
-    <Compile Include="CodingDelegate.cs" />
+    <Compile Include="ByteArray.cs" />
+    <Compile Include="CodingDeletgate.cs" />
+    <Compile Include="auto\MessageEncoding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializeUtil.cs" />
     <Compile Include="ServerStart.cs" />
+    <Compile Include="auto\SocketModel.cs" />
     <Compile Include="UserToken.cs" />
     <Compile Include="UserTokenPool.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

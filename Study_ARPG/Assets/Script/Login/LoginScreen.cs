@@ -72,7 +72,7 @@ public class LoginScreen : MonoBehaviour {
     #region Unity回调
         // Use this for initialization
         void Start () {
-            
+            NetIO io =    NetIO.Instance;
         }
         
         // Update is called once per frame

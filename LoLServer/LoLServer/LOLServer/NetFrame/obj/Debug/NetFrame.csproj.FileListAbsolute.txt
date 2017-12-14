@@ -1,0 +1,5 @@
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\NetFrame\bin\Debug\NetFrame.dll
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\NetFrame\bin\Debug\NetFrame.pdb
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\NetFrame\obj\Debug\NetFrame.csprojResolveAssemblyReference.cache
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\NetFrame\obj\Debug\NetFrame.dll
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\NetFrame\obj\Debug\NetFrame.pdb

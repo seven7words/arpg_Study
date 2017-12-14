@@ -11,50 +11,60 @@ namespace NetFrame
 {
    public class ServerStart
     {
-       Socket server;//服务器socket监听对象
-       int maxClient;//最大客户端连接数
-       Semaphore acceptClients;
-       UserTokenPool pool;
+        Socket server;//服务器socket监听对象
+        int maxClient;//最大客户端连接数
+        Semaphore acceptClients;//多线程的一个api，指定一个初始化的线程数量，和最大的可以并行的数量
+        UserTokenPool pool;
+        public LengthEncode LE;
+        public LengthDecode LD;
+        public encode encode;
+        public decode decode;
 
-       public LengthEncode LE;
-       public LengthDecode LD;
-       public encode encode;
-       public decode decode;
-       /// <summary>
-       /// 初始化通信监听
-       /// </summary>
-       /// <param name="port">监听端口</param>
-       public ServerStart(int max) {
+
+        /// <summary>
+        /// 消息处理中心，由外部应用传入
+        /// </summary>
+        public AbsHandlerCenter center;
+        /// <summary>
+        /// 初始化通信监听
+        /// </summary>
+        /// <param name="port">监听端口</param>
+        public ServerStart(int max) {
            //实例化监听对象
            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
            //设定服务器最大连接人数
            maxClient = max;
+          
+       }
+
+       public void Start(int port) {
            //创建连接池
-           pool = new UserTokenPool(max);
+           pool = new UserTokenPool(maxClient);
            //连接信号量
-           acceptClients = new Semaphore(max, max);
-           for (int i = 0; i < max; i++) {
+           acceptClients = new Semaphore(maxClient, maxClient);
+           for (int i = 0; i < maxClient; i++)
+           {
                UserToken token = new UserToken();
                //初始化token信息               
-               token.receiveSAEA.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Comleted);               
+               token.receiveSAEA.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Comleted);
                token.sendSAEA.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Comleted);
                token.LD = LD;
                token.LE = LE;
                token.encode = encode;
                token.decode = decode;
                token.sendProcess = ProcessSend;
-
+               token.center = center;
+               token.closeProcess = ClientClose;
                pool.push(token);
            }
-       }
-
-       public void Start(int port) {
-           //监听当前服务器网卡所有可用IP地址的port端口
-           // 外网IP  内网IP192.168.x.x 本机IP一个127.0.0.1
-           server.Bind(new IPEndPoint(IPAddress.Any, port));
-           //置于监听状态
-           server.Listen(10);
-           StartAccept(null);
+            //监听当前服务器网卡所有可用IP地址的port端口
+            //Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+               // 外网IP  内网IP192.168.x.x 本机IP一个127.0.0.1
+               server.Bind(new IPEndPoint(IPAddress.Any, port));
+               //置于监听状态
+               server.Listen(10);
+               StartAccept(null);
+          
        }
        /// <summary>
        /// 开始客户端连接监听
@@ -83,7 +93,7 @@ namespace NetFrame
            UserToken token = pool.pop();
            token.conn = e.AcceptSocket;
            //TODO 通知应用层 有客户端连接
-
+           center.ClientConnect(token);
            //开启消息到达监听
            StartReceive(token);
            //释放当前异步对象
@@ -95,13 +105,21 @@ namespace NetFrame
        }
 
        public void StartReceive(UserToken token) {
-           //用户连接对象 开启异步数据接收
-           bool result= token.conn.ReceiveAsync(token.receiveSAEA);
-           //异步事件是否挂起
-           if (!result)
+           try
            {
-               ProcessReceive(token.receiveSAEA);
+               //用户连接对象 开启异步数据接收
+               bool result = token.conn.ReceiveAsync(token.receiveSAEA);
+               //异步事件是否挂起
+               if (!result)
+               {
+                   ProcessReceive(token.receiveSAEA);
+               }
+            }
+           catch (Exception e)
+           {
+               Console.WriteLine(e.Message);
            }
+           
        }
 
        public void IO_Comleted(object sender, SocketAsyncEventArgs e)
@@ -158,6 +176,7 @@ namespace NetFrame
            if (token.conn != null) {
                lock (token) { 
                 //通知应用层面 客户端断开连接了
+                center.ClientClose(token,error);
                    token.Close();
                    //加回一个信号量，供其它用户使用
                    pool.push(token);
