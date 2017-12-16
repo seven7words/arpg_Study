@@ -56,10 +56,12 @@
   <ItemGroup>
      <Compile Include="Assets\QHierarchy\Scripts\QObjectList.cs" />
      <Compile Include="Assets\Script\Login\LoginScreen.cs" />
+     <Compile Include="Assets\Script\MyScriptsForSave\Empty4Raycast.cs" />
      <Compile Include="Assets\Script\NetIO.cs" />
      <Compile Include="Assets\Script\WarningManager.cs" />
      <Compile Include="Assets\Script\WarningModel.cs" />
      <Compile Include="Assets\Script\WarningWindow.cs" />
+     <Compile Include="Assets\Test.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

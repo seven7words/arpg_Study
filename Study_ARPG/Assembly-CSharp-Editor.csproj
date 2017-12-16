@@ -54,6 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\Demo.cs" />
+     <Compile Include="Assets\Editor\SubAssetPostprocessor.cs" />
      <Compile Include="Assets\Editor\VSCode.cs" />
      <Compile Include="Assets\QHierarchy\Editor\Scripts\pcomponent\pbase\QBaseComponent.cs" />
      <Compile Include="Assets\QHierarchy\Editor\Scripts\pcomponent\QChildrenCountComponent.cs" />
