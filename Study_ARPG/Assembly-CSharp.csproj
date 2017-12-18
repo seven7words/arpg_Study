@@ -55,9 +55,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\QHierarchy\Scripts\QObjectList.cs" />
+     <Compile Include="Assets\Script\ByteArray.cs" />
+     <Compile Include="Assets\Script\Extension.cs" />
      <Compile Include="Assets\Script\Login\LoginScreen.cs" />
      <Compile Include="Assets\Script\MyScriptsForSave\Empty4Raycast.cs" />
      <Compile Include="Assets\Script\NetIO.cs" />
+     <Compile Include="Assets\Script\SerializeUtil.cs" />
+     <Compile Include="Assets\Script\SocketModel.cs" />
      <Compile Include="Assets\Script\WarningManager.cs" />
      <Compile Include="Assets\Script\WarningModel.cs" />
      <Compile Include="Assets\Script\WarningWindow.cs" />
@@ -94,6 +98,9 @@
  </Reference>
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>C:/Users/woopqww111/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+ </Reference>
+ <Reference Include="Protocol">
+ <HintPath>C:/Users/woopqww111/Desktop/arpg_Study/Study_ARPG/Assets/Plugins/Protocol.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

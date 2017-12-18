@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HandlerCenter.cs" />
+    <Compile Include="logic\IHandleInterface.cs" />
+    <Compile Include="logic\login\LoginHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,7 +55,12 @@
       <Project>{e5c2883a-ac94-44ec-b56b-ca2db2d70646}</Project>
       <Name>NetFrame</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Protocol\Protocol.csproj">
+      <Project>{e384674e-c6b4-4143-980c-2fe69f74477e}</Project>
+      <Name>Protocol</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

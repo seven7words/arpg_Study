@@ -17,7 +17,8 @@ namespace LOLServer
             ss.encode = MessageEncoding.Encode;
             ss.center = new HandlerCenter();
             ss.decode = MessageEncoding.Decode;
-           
+            ss.LD = LengthEncoding.decode;
+            ss.LE = LengthEncoding.encode;
             ss.Start(6650);
             Console.WriteLine("服务器启动成功");
             while (true)

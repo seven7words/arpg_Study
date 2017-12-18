@@ -7,3 +7,6 @@ C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\b
 C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\obj\Debug\LOLServer.csprojResolveAssemblyReference.cache
 C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\obj\Debug\LOLServer.exe
 C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\obj\Debug\LOLServer.pdb
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\Protocol.dll
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\Protocol.pdb
+C:\Users\woopqww111\Desktop\arpg_Study\LoLServer\LoLServer\LOLServer\LOLServer\bin\Debug\Protocol.dll.config

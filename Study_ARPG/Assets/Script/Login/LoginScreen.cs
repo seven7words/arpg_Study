@@ -44,7 +44,11 @@ public class LoginScreen : MonoBehaviour {
             }
             //TODO:验证通过 申请登录
             //loginBtn.enabled = false;
+            Protocol.DTO.AccountInfoDTO accountInfoDTO = new Protocol.DTO.AccountInfoDTO();
+            accountInfoDTO.account = accountInput.text;
+            accountInfoDTO.password = passwordInput.text;
             loginBtn.interactable = false;
+            NetIO.Instance.Write(Protocol.Protocol.TYPE_LOGIN,0,Protocol.LoginProtocol.LOGIN_CREQ,accountInfoDTO);
 
         }
         public void RegOnClick(){

@@ -15,5 +15,6 @@ public class Test : MonoBehaviour {
 	}
 	public void OnTest(){
 		Debug.Log("????");
+		
 	}
 }
