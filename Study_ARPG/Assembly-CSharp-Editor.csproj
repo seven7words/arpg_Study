@@ -54,6 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\AssetChecker.cs" />
+     <Compile Include="Assets\Editor\CustomEditorStyles.cs" />
      <Compile Include="Assets\Editor\Demo.cs" />
      <Compile Include="Assets\Editor\SubAssetPostprocessor.cs" />
      <Compile Include="Assets\Editor\VSCode.cs" />
