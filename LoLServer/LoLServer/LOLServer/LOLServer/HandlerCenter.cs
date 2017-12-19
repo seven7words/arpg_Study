@@ -4,6 +4,7 @@
 4  * 创建日期：2017/12/14 20:25:51
 5  * ==============================================================================*/
 using System;
+using GameProtocol;
 using LOLServer.logic;
 using LOLServer.logic.login;
 using NetFrame;
@@ -35,7 +36,7 @@ namespace LOLServer
             SocketModel model = message as SocketModel;
             switch (model.type)
             {
-                case Protocol.Protocol.TYPE_LOGIN:
+                case Protocol.TYPE_LOGIN:
                     login.MessageReceive(token,model);
                     break;
                

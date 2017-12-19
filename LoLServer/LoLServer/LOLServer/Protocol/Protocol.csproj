@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E384674E-C6B4-4143-980C-2FE69F74477E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Protocol</RootNamespace>
+    <RootNamespace>GameProtocol</RootNamespace>
     <AssemblyName>Protocol</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

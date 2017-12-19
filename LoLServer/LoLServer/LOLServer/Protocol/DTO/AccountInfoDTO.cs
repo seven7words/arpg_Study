@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Protocol.DTO
+namespace GameProtocol.DTO
 {
     /// <summary>
     /// AccountInfoDTO
@@ -16,6 +16,6 @@ namespace Protocol.DTO
     public class AccountInfoDTO
     {
         public string account;
-        public string password;
+        public  string password;
     }
 }

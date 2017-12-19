@@ -9,16 +9,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using NetFrame;
-using Protocol;
-using Protocol.DTO;
+using GameProtocol;
+using GameProtocol.DTO;
+using LOLServer.biz;
+using LOLServer.biz.account;
+using LOLServer.tool;
 
 namespace LOLServer.logic.login
 {
     /// <summary>
     /// LoginHandler
     /// </summary>
-    public class LoginHandler:IHandleInterface
+    public class LoginHandler: AbsOnceHandler,IHandleInterface
     {
+        private IAccountBiz accountBiz = BizFactory.accountBiz;
 
         public void ClientClose(UserToken token, string error)
         {
@@ -27,7 +31,11 @@ namespace LOLServer.logic.login
 
         public void ClientConnect(UserToken token)
         {
-            throw new NotImplementedException();
+
+            ExecutorPool.Instance.Execute(delegate ()
+           {
+               accountBiz.close(token);
+           });  
         }
 
         public void MessageReceive(UserToken token, SocketModel message)
@@ -45,12 +53,25 @@ namespace LOLServer.logic.login
 
         public void login(UserToken token,AccountInfoDTO value)
         {
-            AccountInfoDTO d = value;
+            ExecutorPool.Instance.Execute(delegate()
+            {
+                int result = accountBiz.login(token, value.account, value.password);
+                write(token, LoginProtocol.LOGIN_SRES, result);
+            });
         }
 
         public void reg(UserToken token, AccountInfoDTO value)
         {
-            
+            ExecutorPool.Instance.Execute(delegate ()
+            {
+                int result = accountBiz.create(token, value.account, value.password);
+                write(token, LoginProtocol.REG_SRES, result);
+            });
+        }
+
+        public override byte GetType()
+        {
+            return Protocol.TYPE_LOGIN;
         }
     }
 }

@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Protocol
+namespace GameProtocol
 {
     /// <summary>
     /// 登陆协议
