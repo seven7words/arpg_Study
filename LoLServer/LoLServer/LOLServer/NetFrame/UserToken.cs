@@ -82,7 +82,7 @@ namespace NetFrame
                 }
                 buff = cache.ToArray();
                 cache.Clear();
-
+                isReading = true;
             }
 
             //反序列化方法是否存在

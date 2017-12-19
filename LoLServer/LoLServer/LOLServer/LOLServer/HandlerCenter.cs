@@ -24,6 +24,7 @@ namespace LOLServer
         public override void ClientClose(UserToken token, string error)
         {
             Console.WriteLine("有客户端断开链接了");
+            login.ClientClose(token,error);
         }
 
         public override void ClientConnect(UserToken token)

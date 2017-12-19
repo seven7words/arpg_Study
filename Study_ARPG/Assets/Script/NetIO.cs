@@ -22,7 +22,7 @@ public  class NetIO  {
 			return instance;
 		}
 	}
-	List<SocketModel> messages = new List<SocketModel>();
+	public List<SocketModel> messages = new List<SocketModel>();
 
 	private NetIO(){
 		try{
@@ -71,7 +71,6 @@ public  class NetIO  {
 			ByteArray arr1 = new ByteArray();
 			arr1.write(ba.Length);
 			arr1.write(ba.getBuff());
-			socket.Send(arr1.getBuff());
 			try{
 				socket.Send(arr1.getBuff());
 			}catch(Exception e){

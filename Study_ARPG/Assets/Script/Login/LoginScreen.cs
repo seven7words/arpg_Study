@@ -33,6 +33,12 @@ public class LoginScreen : MonoBehaviour {
     #region 事件
     #endregion
     #region 方法
+
+        public void openLoginBtn()
+        {
+            passwordInput.text = string.Empty;
+            loginBtn.interactable = true;
+        }
         public void LoginOnClick(){
             if(accountInput.text.Length==0||accountInput.text.Length>6){
                 WarningManager.errors.Add(new WarningModel("账号不合法",delegate{
@@ -48,15 +54,19 @@ public class LoginScreen : MonoBehaviour {
             //loginBtn.enabled = false;
             AccountInfoDTO accountInfoDTO = new AccountInfoDTO();
             accountInfoDTO.account = accountInput.text;
-            accountInfoDTO.password = passwordInput.text;
-            loginBtn.interactable = false;
+            accountInfoDTO.password = passwordInput.text; 
             NetIO.Instance.Write(Protocol.TYPE_LOGIN,0,LoginProtocol.LOGIN_CREQ,accountInfoDTO);
-
+            loginBtn.interactable = false;
         }
         public void RegOnClick(){
             regPanel.SetActive(true);  
         }
-        public void RegCloseOnClick(){
+        public void RegCloseOnClick()
+        {
+            regAccountInput.text = string.Empty;
+            regpw1Input.text = string.Empty;
+            regpwInput.text = string.Empty;
+
             regPanel.SetActive(false); 
         }
         public void RegPanelRegOnClick(){
@@ -72,19 +82,16 @@ public class LoginScreen : MonoBehaviour {
                 Debug.Log("两次输入密码不一致");
                 return;
             }
+            AccountInfoDTO dto = new AccountInfoDTO();
+            dto.account = regAccountInput.text;
+            dto.password = regpw1Input.text;
             //TODO:验证通过申请注册并关闭注册面板
-        }
+            Debug.Log("我点击了咩？");
+            NetIO.Instance.Write(Protocol.TYPE_LOGIN,0,LoginProtocol.REG_CREQ,dto);
+            RegCloseOnClick();
+    }
     #endregion
     #region Unity回调
-        // Use this for initialization
-        void Start () {
-            NetIO io =    NetIO.Instance;
-        }
-        
-        // Update is called once per frame
-        void Update () {
-            
-        }
     #endregion
     #region  事件回调
     #endregion

@@ -26,16 +26,16 @@ namespace LOLServer.logic.login
 
         public void ClientClose(UserToken token, string error)
         {
-            throw new NotImplementedException();
+            ExecutorPool.Instance.Execute(delegate ()
+            {
+                accountBiz.close(token);
+            });
         }
 
         public void ClientConnect(UserToken token)
         {
 
-            ExecutorPool.Instance.Execute(delegate ()
-           {
-               accountBiz.close(token);
-           });  
+           
         }
 
         public void MessageReceive(UserToken token, SocketModel message)

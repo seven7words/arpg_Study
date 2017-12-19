@@ -41,7 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="biz\account\impl\AccountBiz.cs" />
+    <Compile Include="biz\account\IAccountBiz.cs" />
+    <Compile Include="biz\BizFactory.cs" />
+    <Compile Include="cache\CacheFactory.cs" />
+    <Compile Include="cache\IAccountCache.cs" />
+    <Compile Include="cache\impl\AccountCache.cs" />
+    <Compile Include="dao\model\AccountModel.cs" />
     <Compile Include="HandlerCenter.cs" />
+    <Compile Include="logic\AbsOnceHandler.cs" />
     <Compile Include="logic\IHandleInterface.cs" />
     <Compile Include="logic\login\LoginHandler.cs" />
     <Compile Include="Program.cs" />

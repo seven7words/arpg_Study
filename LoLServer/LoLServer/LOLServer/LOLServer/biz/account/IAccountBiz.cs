@@ -30,7 +30,7 @@ namespace LOLServer.biz.account
         /// <param name="token">用户连接</param>
         /// <param name="account">账号</param>
         /// <param name="password">密码</param>
-        /// <returns>登陆结果0成功，1密码错误，2账号不存在</returns>
+        /// <returns>登陆结果0成功，，-1账号不存在 -2 账号已经登陆 -3 密码错误  -4输入不合法</returns>
         int login(UserToken token, string account, string password);
         /// <summary>
         /// 客户端断开连接（下线）
