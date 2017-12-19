@@ -7,6 +7,7 @@ using System;
 using GameProtocol;
 using LOLServer.logic;
 using LOLServer.logic.login;
+using LOLServer.logic.user;
 using NetFrame;
 namespace LOLServer
 {
@@ -16,10 +17,12 @@ namespace LOLServer
     public class HandlerCenter : AbsHandlerCenter
     {
         IHandleInterface login;
+        private IHandleInterface user;
 
         public HandlerCenter()
         {
             login = new LoginHandler();
+            user = new UserHandler();
         }
         public override void ClientClose(UserToken token, string error)
         {
@@ -40,7 +43,12 @@ namespace LOLServer
                 case Protocol.TYPE_LOGIN:
                     login.MessageReceive(token,model);
                     break;
-               
+                case Protocol.TYPE_USER:
+                    user.MessageReceive(token,model);
+                    break;
+                default:
+                    //未知模块，可能是哭护短作弊，无视
+                    break;
                     
             }
         }
