@@ -22,5 +22,15 @@ namespace LOLServer.dao.model
         public int winCount;//胜利场次
         public int loseCount;//失败场次
         public int ranCount;//逃跑场次
+
+        public UserModel()
+        {
+            level = 0;
+            exp = 0;
+            winCount = 0;
+            loseCount = 0;
+            ranCount = 0;
+
+        }
     }
 }
