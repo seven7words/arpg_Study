@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class BatchModifyUI  {
 
@@ -36,14 +37,16 @@ public class BatchModifyUI  {
     /// <param name="onAction">对物体的回调函数</param>
     public static void ModifyUIPrefabs(bool init, System.Func<GameObject, bool> onAction)
     {
-        var objs = GetObjectList<GameObject>("Prefabs/UI", ".prefab", SearchOption.AllDirectories);
+        var objs = GetObjectList<GameObject>("Prefabs/UI/", "*.prefab", SearchOption.AllDirectories);
         foreach (var o in objs)
         {
             var go = o;
+            
             if (init)
             {
                 go = Object.Instantiate(o) as GameObject;
                 go.name = o.name;
+                Debug.Log(o.name);
             }
             if (onAction.Invoke(go) && init)
             {
@@ -54,5 +57,33 @@ public class BatchModifyUI  {
             if(init) Object.DestroyImmediate(go);
         }
         AssetDatabase.SaveAssets();
+    }
+
+    [MenuItem("Demo/界面批处理/按钮格式")]
+    private static void ChangeButtonNavigation()
+    {
+        ModifyUIPrefabs(true, (go) =>
+        {
+            bool dirty = false;
+            var buttons = go.GetComponentsInChildren<Button>();
+            foreach (Button button in buttons)
+            {
+                if (button.navigation.mode != Navigation.Mode.None)
+                {
+                    Navigation navigation = new Navigation();
+                    navigation.mode = Navigation.Mode.None;
+                    button.navigation = navigation;
+                    dirty = true;
+                }
+                if (dirty)
+                {
+                    if (go)
+                    {
+                        UnityEditor.EditorUtility.SetDirty(go);
+                    }
+                }
+            }
+            return dirty;
+        });
     }
 }
