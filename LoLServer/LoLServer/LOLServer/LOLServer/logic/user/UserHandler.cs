@@ -8,6 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameProtocol;
+using GameProtocol.DTO;
+using LOLServer.biz;
+using LOLServer.biz.user;
+using LOLServer.dao.model;
+using LOLServer.tool;
 using NetFrame;
 
 namespace LOLServer.logic.user
@@ -17,6 +22,7 @@ namespace LOLServer.logic.user
     /// </summary>
     public class UserHandler : AbsOnceHandler, IHandleInterface
     {
+        private IUserBiz userBiz = BizFactory.userBiz;
         public void ClientClose(UserToken token, string error)
         {
             
@@ -45,17 +51,37 @@ namespace LOLServer.logic.user
 
         private void create(UserToken token, string message)
         {
-            
+
+            ExecutorPool.Instance.Execute(delegate ()
+            {
+                write(token,UserProtocol.CREATE_SRES, userBiz.Create(token, message));
+              
+            });  
         }
 
         private void info(UserToken token)
         {
-            
+
+            ExecutorPool.Instance.Execute(delegate ()
+            {
+                write(token, UserProtocol.INFO_SRES, convert(userBiz.get(token)));
+
+            });  
         }
 
         private void online(UserToken token)
         {
-            
+
+            ExecutorPool.Instance.Execute(delegate ()
+            {
+            write(token, UserProtocol.ONLINE_SRES, convert(userBiz.online(token)));
+
+            });  
+        }
+
+        private UserDTO convert(UserModel user)
+        {
+            return new UserDTO(user.name,user.id,user.level,user.winCount,user.loseCount,user.ranCount);
         }
     }
 }

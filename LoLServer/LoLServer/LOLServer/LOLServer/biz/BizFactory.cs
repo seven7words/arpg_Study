@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using LOLServer.biz.account;
 using LOLServer.biz.account.impl;
+using LOLServer.biz.user;
+using LOLServer.biz.user.impl;
 
 namespace LOLServer.biz
 {
@@ -18,10 +20,11 @@ namespace LOLServer.biz
     public class BizFactory
     {
         public readonly static IAccountBiz accountBiz;
-
+        public readonly static IUserBiz userBiz;
         static BizFactory()
         {
             accountBiz = new AccountBiz();
+            userBiz = new UserBiz();
         }
     }
 }

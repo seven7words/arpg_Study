@@ -63,7 +63,7 @@ public class SubAssetPostprocessor:AssetPostprocessor{
     }
     #endregion
     #region Texture
-        void OnPreprocessTexture(){
+        void OnPreprocessTexture(Texture2D texture){
             string pathUniform = assetImporter.assetPath.Replace("\\","/");
             UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath(pathUniform,typeof(Texture));
             var labels = AssetDatabase.GetLabels(obj);//I Don't Know
@@ -80,12 +80,12 @@ public class SubAssetPostprocessor:AssetPostprocessor{
                 if(pathUniform.StartsWith(kv.Key)){
                     TextureImporter ti = (TextureImporter) assetImporter;
                     kv.Value.Invoke(ti,pathUniform);
-                    ProcTextureFormat(ti,pathUniform);
+                    ProcTextureFormat(ti,pathUniform,texture);
                     break;
                 }
             }
         }
-        void ProcTextureFormat(TextureImporter ti,string path){
+        void ProcTextureFormat(TextureImporter ti,string path,Texture2D texture){
             bool formatOverWriten = false;
             if(path.Contains("_a")){
                 formatOverWriten = true;
@@ -97,7 +97,7 @@ public class SubAssetPostprocessor:AssetPostprocessor{
                 ti.textureCompression = TextureImporterCompression.Uncompressed;
                 formatOverWriten = true;
             }
-            if(path.Contains("_S128")){
+            else if(path.Contains("_S128")){
                 ti.maxTextureSize =128;
 
             }else if(path.Contains("_S256")){
@@ -106,6 +106,74 @@ public class SubAssetPostprocessor:AssetPostprocessor{
                 ti.maxTextureSize = 512;
             }else if(path.Contains("_S1024")){
                 ti.maxTextureSize = 1024;
+            }else if (path.Contains("_dither565"))
+            {
+                var texw = texture.width;
+                var texh = texture.height;
+                var pixels = texture.GetPixels();
+                var offs = 0;
+                var k1Per31 = 1.0f / 31.0f;
+                var k1Per32 = 1.0f / 32.0f;
+                var k5Per32 = 5.0f / 32.0f;
+                var k11Per32 = 11.0f / 32.0f;
+                var k15Per32 = 15.0f / 32.0f;
+                var k1Per63 = 1.0f / 63.0f;
+                var k3Per64 = 3.0f / 64.0f;
+                var k11Per64 = 11.0f / 64.0f;
+                var k21Per64 = 21.0f / 64.0f;
+                var k29Per64 = 29.0f / 64.0f;
+                var k_r = 32;//R&B压缩到5位，所以取2的5次方
+                var k_g = 64;//G压缩到6位，所以取2的6次方
+                for (int y = 0; y < texh; y++)
+                {
+                    for (int x = 0; x < texw; x++)
+                    {
+                        float r = pixels[offs].r;
+                        float g = pixels[offs].g;
+                        float b = pixels[offs].b;
+                        var r2 = Mathf.Clamp01(Mathf.Floor(r * k_r) * k1Per31);
+                        var g2 = Mathf.Clamp01(Mathf.Floor(g * k_g) * k1Per63);
+                        var b2 = Mathf.Clamp01(Mathf.Floor(g * k_g) * k1Per31);
+                        var re = r - r2;
+                        var ge = g - g2;
+                        var be = b - b2;
+                        var n1 = offs + 1;
+                        var n2 = offs + texw - 1;
+                        var n3 = offs + texw;
+                        var n4 = offs + texw + 1;
+                        if (x < texw - 1)
+                        {
+                            pixels[n1].r += re * k15Per32;
+                            pixels[n1].g += ge * k29Per64;
+                            pixels[n1].b += be * k15Per32;
+                        }
+                        if (y < texh - 1)
+                        {
+                            pixels[n3].r += re * k11Per32;
+                            pixels[n3].g += re * k21Per64;
+                            pixels[n3].b += be * k11Per32;
+                            if (x > 0)
+                            {
+                                pixels[n2].r += re * k5Per32;
+                                pixels[n2].g += ge * k11Per64;
+                                pixels[n3].b += be * k5Per32;
+
+                            }
+                            if (x < texw - 1)
+                            {
+                                pixels[n4].r += re * k1Per32;
+                                pixels[n4].g += ge * k3Per64;
+                                pixels[n4].b += be * k1Per32;
+                            }
+                        }
+                        pixels[offs].r = r2;
+                        pixels[offs].r = g2;
+                        pixels[offs].b = b2;
+                        offs++;
+                    }
+                }
+                texture.SetPixels(pixels);
+            EditorUtility.CompressTexture(texture,TextureFormat.RGB565,TextureCompressionQuality.Best);
             }
             if(path.Contains("_NM")){
                 ti.mipmapEnabled = true;

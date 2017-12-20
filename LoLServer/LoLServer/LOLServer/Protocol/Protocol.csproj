@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\AccountInfoDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="LoginProtocol.cs" />
     <Compile Include="Protocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

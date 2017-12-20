@@ -8,7 +8,7 @@ using NetFrame;
 
 namespace LOLServer.biz.user
 {
-    interface IUserBiz
+    public interface IUserBiz
     {
         /// <summary>
         /// 创建召唤师

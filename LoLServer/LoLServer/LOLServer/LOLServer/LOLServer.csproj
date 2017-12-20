@@ -49,6 +49,7 @@
     <Compile Include="cache\CacheFactory.cs" />
     <Compile Include="cache\IAccountCache.cs" />
     <Compile Include="cache\impl\AccountCache.cs" />
+    <Compile Include="cache\impl\UserCache.cs" />
     <Compile Include="cache\IUserCache.cs" />
     <Compile Include="dao\model\AccountModel.cs" />
     <Compile Include="dao\model\UserModel.cs" />
