@@ -55,7 +55,7 @@ public class LoginScreen : MonoBehaviour {
             AccountInfoDTO accountInfoDTO = new AccountInfoDTO();
             accountInfoDTO.account = accountInput.text;
             accountInfoDTO.password = passwordInput.text; 
-            NetIO.Instance.Write(Protocol.TYPE_LOGIN,0,LoginProtocol.LOGIN_CREQ,accountInfoDTO);
+            this.WriteMessage(Protocol.TYPE_LOGIN,0,LoginProtocol.LOGIN_CREQ,accountInfoDTO);
             loginBtn.interactable = false;
         }
         public void RegOnClick(){
@@ -87,7 +87,7 @@ public class LoginScreen : MonoBehaviour {
             dto.password = regpw1Input.text;
             //TODO:验证通过申请注册并关闭注册面板
             Debug.Log("我点击了咩？");
-            NetIO.Instance.Write(Protocol.TYPE_LOGIN,0,LoginProtocol.REG_CREQ,dto);
+            this.WriteMessage(Protocol.TYPE_LOGIN,0,LoginProtocol.REG_CREQ,dto);
             RegCloseOnClick();
     }
     #endregion
