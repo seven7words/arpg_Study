@@ -22,8 +22,9 @@ namespace LOLServer.cache
         /// </summary>
         /// <param name="token"></param>
         /// <param name="name"></param>
+        ///  <param name="accountId">角色的账号id</param>
         /// <returns></returns>
-        bool create(UserToken token,string name);
+        bool create(UserToken token,string name,int accountId);
         /// <summary>
         /// 是否拥有角色
         /// </summary>

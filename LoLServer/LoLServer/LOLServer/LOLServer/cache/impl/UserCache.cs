@@ -37,11 +37,16 @@ namespace LOLServer.cache.impl
         /// 角色id
         /// </summary>
         private int index = 0;
-        public bool create(UserToken token, string name)
+        public bool create(UserToken token, string name,int accountId)
         {
             UserModel user = new UserModel();
             user.name = name;
             user.id = index++;
+            user.accountId = accountId;
+            //创建成功，进行账号id和用户id的绑定
+            accToUid.Add(accountId,user.id);
+            //创建成功进行用户id和用户模型的绑定
+            idToModel.Add(user.id,user);
             return true;
         }
 

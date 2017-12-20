@@ -24,19 +24,24 @@ namespace LOLServer.biz.user.impl
         public bool Create(UserToken token, string name)
         {
            //账号是否登陆 获取账号id
-            int accountId =   accBiz.get(token);
+            int accountId =  accBiz.get(token);
             if (accountId == -1)
                 return false;
            //判断当前账号是否已经拥有角色
             if (userCache.hasByAccountId(accountId))
                 return false;
-            userCache.create(token, name);
+            userCache.create(token, name,accountId);
             return true;
         }
 
         public UserModel get(UserToken token)
         {
-            return userCache.get(token);
+            //账号是否登陆 获取账号id
+            int accountId = accBiz.get(token);
+            if (accountId == -1)
+                return null;
+            
+            return userCache.getByAccountId(accountId);
         }
 
         public UserModel get(int id)

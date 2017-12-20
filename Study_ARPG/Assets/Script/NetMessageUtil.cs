@@ -6,11 +6,14 @@ using UnityEngine;
 public class NetMessageUtil : MonoBehaviour
 {
     private IHandler login;
+
+    private IHandler user;
 	// Use this for initialization
 	void Start ()
 	{
 	    login = GetComponentInChildren<LoginHandler>();
-	}
+        user = GetComponentInChildren<UserHandler>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,6 +32,9 @@ public class NetMessageUtil : MonoBehaviour
         {
             case Protocol.TYPE_LOGIN:
                 login.MessageReceive(model);
+                break;
+            case Protocol.TYPE_USER:
+                user.MessageReceive(model);
                 break;
         }
     }

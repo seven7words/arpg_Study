@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameProtocol.DTO;
 
 
-    /// <summary>
+/// <summary>
     /// GameData
     /// </summary>
     public class GameData
-    {
-    }
+{
+    public static UserDTO user = null;
+}

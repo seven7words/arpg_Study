@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -253,12 +251,14 @@
     <Compile Include="Assets\Script\IHandler.cs" />
     <Compile Include="Assets\Script\Login\LoginHandler.cs" />
     <Compile Include="Assets\Script\Login\LoginScreen.cs" />
+    <Compile Include="Assets\Script\Main\CreatePanel.cs" />
     <Compile Include="Assets\Script\Main\MainScreen.cs" />
     <Compile Include="Assets\Script\MyScriptsForSave\Empty4Raycast.cs" />
     <Compile Include="Assets\Script\NetIO.cs" />
     <Compile Include="Assets\Script\NetMessageUtil.cs" />
     <Compile Include="Assets\Script\SerializeUtil.cs" />
     <Compile Include="Assets\Script\SocketModel.cs" />
+    <Compile Include="Assets\Script\UserHandler.cs" />
     <Compile Include="Assets\Script\WarningManager.cs" />
     <Compile Include="Assets\Script\WarningModel.cs" />
     <Compile Include="Assets\Script\WarningWindow.cs" />

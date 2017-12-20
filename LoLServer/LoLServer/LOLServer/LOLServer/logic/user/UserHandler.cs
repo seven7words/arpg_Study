@@ -25,7 +25,7 @@ namespace LOLServer.logic.user
         private IUserBiz userBiz = BizFactory.userBiz;
         public void ClientClose(UserToken token, string error)
         {
-            
+            userBiz.offline(token);
         }
 
         public void ClientConnect(UserToken token)
@@ -81,7 +81,13 @@ namespace LOLServer.logic.user
 
         private UserDTO convert(UserModel user)
         {
+            if (user == null) return null;
             return new UserDTO(user.name,user.id,user.level,user.winCount,user.loseCount,user.ranCount);
+        }
+
+        public override byte GetType()
+        {
+            return Protocol.TYPE_USER;
         }
     }
 }

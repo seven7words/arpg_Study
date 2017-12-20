@@ -41,7 +41,7 @@ namespace LOLServer.cache.impl
         public int getId(UserToken token)
         {
             //判断在线字典中是否有此连接的记录，没有说明此连接没有登陆，无法获取账号id
-            if (onlineAccMap.ContainsKey(token))
+            if (!onlineAccMap.ContainsKey(token))
                 return -1;
             //返回绑定账号id
             return accMap[onlineAccMap[token]].id;
