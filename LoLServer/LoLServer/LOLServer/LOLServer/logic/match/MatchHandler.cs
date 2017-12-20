@@ -41,7 +41,7 @@ namespace LOLServer.logic.match
         private ConcurrentInteger index = new ConcurrentInteger();
         public void ClientClose(UserToken token, string error)
         {
-            throw new NotImplementedException();
+            leave(token);
         }
 
         public void ClientConnect(UserToken token)
@@ -57,13 +57,52 @@ namespace LOLServer.logic.match
                     enter(token);
                     break;
                 case MatchProtocol.LEAVE_CREQ:
+                    leave(token);
                     break;
             }
         }
 
+        private void leave(UserToken token)
+        {
+
+            //取得用户唯一id
+            int userId = getUserId(token);
+            Console.WriteLine("用户取消匹配" + userId);
+            //判断用户是否有房间映射关系
+            if (!userRoom.ContainsKey(userId))
+            {
+                return;
+            }
+            //用户所在房间id
+            int roomId = userRoom[userId];
+            //判断是否拥有此房间
+            if (!roomMap.ContainsKey(roomId))
+            {
+                return;
+            }
+            MatchRoom room = roomMap[roomId];
+            //根据用户所在的队伍进行移除
+            if (room.teamOne.Contains(userId))
+            {
+                room.teamOne.Remove(userId);
+            }else if (room.teamTwo.Contains(userId))
+            {
+                room.teamTwo.Remove(userId);
+            }
+            //移除用户与房间之间的映射关系
+            userRoom.TryRemove(userId, out roomId);
+            //如果当前用户为此房间最后一人，则移除房间到缓存中
+            if (room.teamOne.Count + room.teamTwo.Count == 0)
+            {
+                roomMap.TryRemove(roomId, out room);
+                cache.Push(room);
+            }
+
+        }
         private void enter(UserToken token)
         {
             int userId = getUserId(token);
+            Console.WriteLine("用户匹配"+userId);
             //判断玩家当前是否在匹配队列中
             if (!userRoom.ContainsKey(userId))
             {

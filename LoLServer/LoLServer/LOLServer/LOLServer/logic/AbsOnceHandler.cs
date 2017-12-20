@@ -58,6 +58,8 @@ namespace LOLServer.logic
         /// <returns></returns>
         public int getUserId(UserToken token)
         {
+            UserModel user = getUser(token);
+            if (user == null) return -1;
             return getUser(token).id;
         }
         /// <summary>
