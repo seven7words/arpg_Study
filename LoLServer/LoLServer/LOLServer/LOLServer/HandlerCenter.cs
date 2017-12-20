@@ -7,6 +7,7 @@ using System;
 using GameProtocol;
 using LOLServer.logic;
 using LOLServer.logic.login;
+using LOLServer.logic.match;
 using LOLServer.logic.user;
 using NetFrame;
 namespace LOLServer
@@ -18,17 +19,23 @@ namespace LOLServer
     {
         IHandleInterface login;
         private IHandleInterface user;
+        private IHandleInterface match;
 
         public HandlerCenter()
         {
             login = new LoginHandler();
             user = new UserHandler();
+            match = new MatchHandler();
         }
         public override void ClientClose(UserToken token, string error)
         {
             Console.WriteLine("有客户端断开链接了");
+            //user的链接关闭方法一定要放在逻辑处理单元后面
+            //其他逻辑单元需要通过user绑定数据来进行内存清理
+            //如果先清除了绑定关系，其他模块无法获取角色数据会导致无法清理
+            match.ClientClose(token, error);
             login.ClientClose(token,error);
-            user.ClientClose(token,error);
+            user.ClientClose(token, error);
         }
 
         public override void ClientConnect(UserToken token)
@@ -46,6 +53,9 @@ namespace LOLServer
                     break;
                 case Protocol.TYPE_USER:
                     user.MessageReceive(token,model);
+                    break;
+                case Protocol.TYPE_MATCH:
+                    match.MessageReceive(token,model);
                     break;
                 default:
                     //未知模块，可能是哭护短作弊，无视

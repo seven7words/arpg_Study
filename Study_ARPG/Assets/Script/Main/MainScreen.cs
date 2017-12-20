@@ -17,7 +17,7 @@ public class MainScreen : MonoBehaviour
     private Text name;//等级显示e
 
     [SerializeField] private Slider expBar;//经验条
-
+    [SerializeField] private Text matchText;//匹配按钮文字
     #endregion
     // Use this for initialization
     void Start () {
@@ -35,6 +35,20 @@ public class MainScreen : MonoBehaviour
 		
 	}
 
+    public void Match()
+    {
+        if (matchText.text == "开始排队")
+        {
+            matchText.text = "取消排队";
+            this.WriteMessage(Protocol.TYPE_MATCH,0,MatchProtocol.ENTER_CREQ,null);
+        }
+        else
+        {
+            matchText.text = "开始排队";
+            this.WriteMessage(Protocol.TYPE_MATCH, 0, MatchProtocol.LEAVE_CREQ, null);
+
+        }
+    }
     public void RefreshView()
     {
         name.text = GameData.user.name + "  " + GameData.user.level;

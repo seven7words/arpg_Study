@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LOLServer.biz;
+using LOLServer.biz.user;
+using LOLServer.dao.model;
 using NetFrame;
 
 namespace LOLServer.logic
@@ -16,6 +19,7 @@ namespace LOLServer.logic
     /// </summary>
     public class AbsOnceHandler
     {
+        public IUserBiz userBiz = BizFactory.userBiz;
         private byte type;
         private int area;
 
@@ -37,7 +41,34 @@ namespace LOLServer.logic
         {
             return type;
         }
+        /// <summary>
+        /// 通过链接获取用户模型数据
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public UserModel getUser(UserToken token)
+        {
+            return userBiz.get(token);
+        }
 
+        /// <summary>
+        /// 通过链接获取用户id
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public int getUserId(UserToken token)
+        {
+            return getUser(token).id;
+        }
+        /// <summary>
+        /// 通过用户id获取链接
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public UserToken getToken(int id)
+        {
+            return userBiz.getToken(id);
+        }
         #region 通过连接对象发送
 
         public void write(UserToken token, int command)
@@ -65,19 +96,21 @@ namespace LOLServer.logic
 
         public void write(int id, int command)
         {
-
+            write(id,command,null);
         }
         public void write(int id, int command, object message)
         {
-
+            write(id,GetArea(),command,message);
         }
         public void write(int id, int area, int command, object message)
         {
-
+            write(id,GetType(),area,command,message);
         }
         public void write(int id, byte type, int area, int command, object message)
         {
-
+            UserToken token=   getToken(id);
+            if (token == null) return;
+            write(token,type,area,command,message);
         }
 
         #endregion

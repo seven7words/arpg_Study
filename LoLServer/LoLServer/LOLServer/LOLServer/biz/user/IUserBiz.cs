@@ -46,5 +46,11 @@ namespace LOLServer.biz.user
         /// <param name="id"></param>
         /// <returns></returns>
         UserToken getToken(int id);
+        /// <summary>
+        /// 通过账号的链接对象获取 仅在出事登录验证角色时有效
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        UserModel getByAccount(UserToken token);
     }
 }

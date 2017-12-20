@@ -34,7 +34,7 @@ namespace LOLServer.biz.user.impl
             return true;
         }
 
-        public UserModel get(UserToken token)
+        public UserModel getByAccount(UserToken token)
         {
             //账号是否登陆 获取账号id
             int accountId = accBiz.get(token);
@@ -70,6 +70,11 @@ namespace LOLServer.biz.user.impl
         public UserToken getToken(int id)
         {
             return userCache.getToken(id);
+        }
+
+        public UserModel get(UserToken token)
+        {
+            return userCache.get(token);
         }
     }
 }

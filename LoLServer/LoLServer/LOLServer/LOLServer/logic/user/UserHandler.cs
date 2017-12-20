@@ -64,7 +64,7 @@ namespace LOLServer.logic.user
 
             ExecutorPool.Instance.Execute(delegate ()
             {
-                write(token, UserProtocol.INFO_SRES, convert(userBiz.get(token)));
+                write(token, UserProtocol.INFO_SRES, convert(userBiz.getByAccount(token)));
 
             });  
         }

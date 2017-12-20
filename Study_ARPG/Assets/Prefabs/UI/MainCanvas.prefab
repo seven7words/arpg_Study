@@ -817,7 +817,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114249931508930328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114401166089449732}
+        m_MethodName: Match
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114400161323536262
@@ -868,6 +879,7 @@ MonoBehaviour:
   createPanel: {fileID: 114409287855035286}
   name: {fileID: 114522806509727952}
   expBar: {fileID: 114996916123715580}
+  matchText: {fileID: 114545818714815182}
 --- !u!114 &114409287855035286
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -30,6 +30,7 @@ namespace GameProtocol.DTO
 
         public UserDTO(string name,int id,int level,int win,int lose,int ran)
         {
+            this.level = level;
             this.id = id;
             this.name = name;
             this.winCount = win;
