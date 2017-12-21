@@ -72,19 +72,37 @@ namespace LOLServer.logic.select
             if (roomMap.TryRemove(roomId, out room))
             {
                //移除橘色和房间之间的绑定关系
-               //将房间丢进缓存队列，供下次选择使用
-               cache.Push(room);
+                foreach (int item in room.teamOne.Keys)
+                {
+                    int temp = 0;
+                    userRoom.TryRemove(item, out temp);
+
+                }
+                foreach (int item in room.teamTwo.Keys)
+                {
+                    int temp = 0;
+                    userRoom.TryRemove(item, out temp);
+
+                }
+                room.list.Clear();
+                room.teamOne.Clear();
+                room.teamTwo.Clear();
+                //将房间丢进缓存队列，供下次选择使用
+                cache.Push(room);
             }
         }
         public void ClientClose(UserToken token, string error)
         {
             int userId = getUserId(token);
+            //判断当前玩家是否有房间
             if (userRoom.ContainsKey(userId))
             {
                 int roomId;
+                //移除并获取玩家所在房间
                 userRoom.TryRemove(userId, out roomId);
                 if (roomMap.ContainsKey(roomId))
                 {
+                    //
                     roomMap[roomId].ClientClose(token,error);
                 }
             }

@@ -23,6 +23,7 @@ namespace LOLServer.dao.model
         public int loseCount;//失败场次
         public int ranCount;//逃跑场次
         public int accountId;//角色所属的账号id
+        public List<int> heroList;
         public UserModel()
         {
             level = 0;

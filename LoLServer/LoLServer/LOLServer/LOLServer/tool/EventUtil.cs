@@ -14,7 +14,7 @@ using System.Text;
 /// <param name="teamTwo"></param>
 public delegate void CreateSelect(List<int> teamOne,List<int>teamTwo);
 /// <summary>
-/// 移除选人模块事件
+/// 移除选人模块事件 选人房间关闭
 /// </summary>
 /// <param name="roomId"></param>
 public delegate void DestroySelect(int roomId);
