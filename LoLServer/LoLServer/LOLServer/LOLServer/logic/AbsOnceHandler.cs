@@ -50,7 +50,15 @@ namespace LOLServer.logic
         {
             return userBiz.get(token);
         }
-
+        /// <summary>
+        /// 通过id获取用户模型数据
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public UserModel getUser(int id)
+        {
+            return userBiz.get(id);
+        }
         /// <summary>
         /// 通过链接获取用户id
         /// </summary>
@@ -115,11 +123,26 @@ namespace LOLServer.logic
             write(token,type,area,command,message);
         }
 
+        public void writeToUsers(int[] users, byte type, int area, int command, object message)
+        {
+            byte[] value = MessageEncoding.Encode(CreateSocketModel(type, area, command, message));
+            value = LengthEncoding.encode(value);
+            foreach (int item in users)
+            {
+                UserToken token = userBiz.getToken(item);
+                if(token==null)continue;
+                byte[] bs = new byte[value.Length];
+                Array.Copy(value,0,bs,0,value.Length);
+                token.write(bs);
+            }
+        }
         #endregion
+
 
         public SocketModel CreateSocketModel(byte type, int area, int command, object message)
         {
             return new SocketModel( type,  area,  command,  message);
         }
+
     }
 }

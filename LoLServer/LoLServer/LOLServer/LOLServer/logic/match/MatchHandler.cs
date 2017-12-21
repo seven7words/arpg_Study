@@ -177,6 +177,10 @@ namespace LOLServer.logic.match
                 {
                     //这里通知选人模块，开始选人了
                     //TODO:
+                    EventUtil.createSelect(room.teamOne, room.teamTwo);
+                    writeToUsers(room.teamOne.ToArray(),GetType(),0,MatchProtocol.ENTER_SELECT_BRO,null);
+                    writeToUsers(room.teamTwo.ToArray(), GetType(), 0, MatchProtocol.ENTER_SELECT_BRO, null);
+
                     //移除玩家与房间映射
                     foreach (int item in room.teamOne)
                     {
