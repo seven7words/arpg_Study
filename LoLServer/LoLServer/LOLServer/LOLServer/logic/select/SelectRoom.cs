@@ -27,10 +27,16 @@ namespace LOLServer.logic.select
         private int enterCount = 0;
         //当前定时任务id
         private int missionId = -1;
+        List<int> readList = new List<int>();
         public void ClientClose(UserToken token, string error)
         {
+            //调用离开方法 让此链接不在接受网络消息
             leave(token);
-            Destroy();
+            //通知所有人，房间解散回去主界面
+            //Destroy();
+            brocast(SelectProtocol.DESTROY_BRO,null);
+            //通知管理器移除自身
+            EventUtil.destroySelect(GetArea());
         }
 
         public void ClientConnect(UserToken token)
@@ -40,8 +46,11 @@ namespace LOLServer.logic.select
 
         public void Init(List<int> teamOne, List<int> teamTwo)
         {
+            //初始化房间数据
             this.teamOne.Clear();
             this.teamTwo.Clear();
+            //重置
+            enterCount = 0;
             foreach (int item in teamOne)
             {
                 SelectModel select = new SelectModel();
@@ -72,8 +81,10 @@ namespace LOLServer.logic.select
                 }
                 else
                 {
+                    //再次启动定时任务 30秒内完成选人
                     missionId = ScheduleUtil.Instance.schedule(delegate
                     {
+                        //时间抵达30s 便利判断 是否所有人都选择；额
                         bool selectAll = true;
                         foreach (SelectModel item in this.teamOne.Values)
                         {
@@ -97,27 +108,33 @@ namespace LOLServer.logic.select
                         if (selectAll)
                         {
                             //全部选了，只是有人没有开始按准备按钮，开支战斗
+                            StartFight();
                         }else
                         {
+                            //有人没选，解散房间
                            Destroy();
                         }
-                        missionId = -1;
+                       // missionId = -1;
                     }, 30 * 1000);
                 }
 
             }, 30 * 1000);
         }
-
+        /// <summary>
+        /// 解散房间
+        /// </summary>
         private void Destroy()
         {
-            
+            //通知房间所有人 房间解散了 回去主界面
             brocast(SelectProtocol.DESTROY_BRO, null);
+            //通知管理器 移除自身
             EventUtil.destroySelect(GetArea());
+            //当前有定时任务，则进行关闭
             if (missionId != -1)
             {
                 ScheduleUtil.Instance.RemoveMission(missionId);
             }
-            enterCount = 0;
+            
 
         }
         public void MessageReceive(UserToken token, SocketModel message)
@@ -131,13 +148,78 @@ namespace LOLServer.logic.select
                     Select(token,message.GetMessage<int>());
                     break;
                 case SelectProtocol.TALK_CREQ:
+                    Talk(token,message.GetMessage<string>());
                     break;
                 case SelectProtocol.READY_CREQ:
+                    Ready(token);
                     break;
                     
             }
         }
 
+        private void Ready(UserToken token)
+        {
+            //判断玩家是否在房间里
+            if (base.isEntered(token))
+            {
+                return;
+            }
+            int userId = getUserId(token);
+            //判断玩家是否已经准备
+            if(readList.Contains(userId)) return;
+            SelectModel sm = null;
+            //获取玩家选择数据模型
+            if (teamOne.ContainsKey(userId))
+            {
+                sm = teamOne[userId];
+            }
+            else
+            {
+                sm = teamTwo[userId];
+            }
+            //没选择英雄 不让准备
+            if (sm.hero == -1)
+            {
+                
+            }
+            else
+            {
+                //设置已经选择状态
+                sm.ready = true;
+                brocast(SelectProtocol.READY_BRO,sm);
+                //添加进准备列表
+                readList.Add(userId);
+                if (readList.Count >= teamOne.Count + teamTwo.Count)
+                {
+                    //所有人都准备了 开始战斗
+                    StartFight();
+                }
+            }
+        }
+
+        private void StartFight()
+        {
+            if (missionId != -1)
+            {
+                ScheduleUtil.Instance.RemoveMission(missionId);
+                missionId = -1;
+            }
+            //通知战斗模块创建战斗房间
+
+            //通知选择房间管理器 销毁当前房间
+            EventUtil.destroySelect(GetArea());
+        }
+        private void Talk(UserToken token, string value)
+        {
+            //判断玩家是否在房间里
+            if (base.isEntered(token))
+            {
+                return;
+            }
+            //判断玩家是否拥有此英雄
+            UserModel user = getUser(token);
+            brocast(SelectProtocol.TALK_BRO,user.name+":"+value);
+        }
         private void Select(UserToken token, int value)
         {
             //判断玩家是否在房间里
