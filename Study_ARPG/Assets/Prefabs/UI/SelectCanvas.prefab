@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 222988116566187520}
   - component: {fileID: 114215522851345338}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: talkPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1630,69 +1630,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'ffdsffsdff
-
-    fdsfafdsfs
-
-    fsdfsdfdsf
-
-    sdfsdfdsaf
-
-    fsdfdsfsda
-
-    fsdfsfdsaf
-
-    fsdfsdafdsf
-
-    fdsffd
-
-    fdsfsda
-
-    fdsfsafd
-
-    fsdfdsafas
-
-
-
-
-    fdsfsafdsfdsa
-
-
-
-
-
-
-    dsfasffdf
-
-    fdsfadf
-
-    fsdfdsfdsf
-
-    fsdfsdaf
-
-    fdsafsdfds
-
-    ffdsfadfd
-
-    fdsfdsfdsfdsf
-
-    fdsfdsafdsaf
-
-
-    fdsfdsfdsaf
-
-
-
-
-    fdsfsdafds
-
-
-
-    f
-
-    dsafdsfsdfsdfdsa
-
-'
+  m_Text: 
 --- !u!114 &114169478869106874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1900,7 +1838,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114030466403544654}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114617885121657528}
+        m_MethodName: SendClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114210019678275112
@@ -2546,7 +2495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2941,17 +2890,20 @@ MonoBehaviour:
   initMask: {fileID: 1869388900255076}
   left:
   - {fileID: 114053476088597546}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114789458376207970}
+  - {fileID: 114673577244796604}
+  - {fileID: 114930178103214454}
+  - {fileID: 114966208906044200}
   right:
   - {fileID: 114388597772466544}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114169478869106874}
+  - {fileID: 114099369203636546}
+  - {fileID: 114238818587649516}
+  - {fileID: 114855839590048454}
   ready: {fileID: 114258928868835172}
+  talkInput: {fileID: 114309200546201578}
+  talkMessageShow: {fileID: 114159416056885460}
+  talkScroll: {fileID: 114583288702469356}
 --- !u!114 &114628632890521274
 MonoBehaviour:
   m_ObjectHideFlags: 1

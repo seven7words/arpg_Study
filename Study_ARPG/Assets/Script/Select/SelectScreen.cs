@@ -21,6 +21,26 @@ public class SelectScreen : MonoBehaviour
     private SelectGrid[] right;//右边
 
     [SerializeField] private Button ready;
+    [SerializeField]
+    private InputField talkInput;//聊天输入框
+    [SerializeField]
+    private Text talkMessageShow;//聊天信息显示框
+
+    [SerializeField] private Scrollbar talkScroll;//聊天滚动条
+    public void SendClick()
+    {
+        if (talkInput.text != string.Empty)
+        {
+            this.WriteMessage(Protocol.TYPE_SELECT,0,SelectProtocol.TALK_CREQ,talkInput.text);
+            talkInput.text = string.Empty;
+        }
+    }
+
+    public void TalkShow(string value)
+    {
+        talkMessageShow.text += "\n" + value;
+        talkScroll.value = 0;
+    }
     // Use this for initialization
     void Start ()
     {

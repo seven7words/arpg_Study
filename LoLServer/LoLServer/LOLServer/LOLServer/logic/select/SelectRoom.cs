@@ -212,7 +212,7 @@ namespace LOLServer.logic.select
         private void Talk(UserToken token, string value)
         {
             //判断玩家是否在房间里
-            if (base.isEntered(token))
+            if (!base.isEntered(token))
             {
                 return;
             }

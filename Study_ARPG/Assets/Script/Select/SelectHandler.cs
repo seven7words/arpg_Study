@@ -96,9 +96,11 @@ public class SelectHandler : MonoBehaviour, IHandler
     private void talk(string value)
     {
         //向聊天面板添加信息
+        transform.GetComponent<SelectScreen>().TalkShow(value);
     }
     private void enter(SelectRoomDTO dto)
     {
+        transform.GetComponent<SelectScreen>().CloseMask();
         room = dto;
         //刷新界面UI
         SelectEventUtil.refreshView(room);
@@ -114,6 +116,7 @@ public class SelectHandler : MonoBehaviour, IHandler
             {
                 item.enter = true;
                 //刷新UI界面
+                SelectEventUtil.refreshView(room);
                 return;
             }
         }

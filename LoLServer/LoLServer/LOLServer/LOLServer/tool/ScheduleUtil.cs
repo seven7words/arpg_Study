@@ -81,7 +81,7 @@ namespace LOLServer.tool
         {
             
             //毫秒转微秒
-            return schedulemms(task,delay*1000);
+            return schedulemms(task,delay*1000*1000);
         }
         /// <summary>
         /// 任务调用 
