@@ -82,7 +82,7 @@ namespace LOLServer.logic.user
         private UserDTO convert(UserModel user)
         {
             if (user == null) return null;
-            return new UserDTO(user.name,user.id,user.level,user.winCount,user.loseCount,user.ranCount);
+            return new UserDTO(user.name,user.id,user.level,user.winCount,user.loseCount,user.ranCount,user.heroList.ToArray());
         }
 
         public override byte GetType()

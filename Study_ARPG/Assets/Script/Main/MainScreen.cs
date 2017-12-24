@@ -14,7 +14,7 @@ public class MainScreen : MonoBehaviour
 
     #region 数显示UI组件，刷新调用
     [SerializeField]
-    private Text name;//等级显示e
+    private Text userName;//等级显示e
 
     [SerializeField] private Slider expBar;//经验条
     [SerializeField] private Text matchText;//匹配按钮文字
@@ -51,7 +51,7 @@ public class MainScreen : MonoBehaviour
     }
     public void RefreshView()
     {
-        name.text = GameData.user.name + "  " + GameData.user.level;
+        userName.text = GameData.user.name + "  " + GameData.user.level;
         expBar.value = GameData.user.exp / 100;
     }
     /// <summary>

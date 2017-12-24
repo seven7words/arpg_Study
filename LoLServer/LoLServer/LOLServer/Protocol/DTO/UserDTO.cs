@@ -22,13 +22,13 @@ namespace GameProtocol.DTO
         public int winCount;//胜利场次
         public int loseCount;//失败场次
         public int ranCount;//逃跑场次
-
+        public int[] heroList;//玩家拥有的英雄列表
         public UserDTO()
         {
             
         }
 
-        public UserDTO(string name,int id,int level,int win,int lose,int ran)
+        public UserDTO(string name,int id,int level,int win,int lose,int ran,int[] heroList)
         {
             this.level = level;
             this.id = id;
@@ -36,6 +36,7 @@ namespace GameProtocol.DTO
             this.winCount = win;
             this.loseCount = lose;
             this.ranCount = ran;
+            this.heroList = heroList;
         }
     }
 }

@@ -17,5 +17,20 @@ namespace GameProtocol.DTO
     {
         public SelectModel[] teamOne;
         public SelectModel[] teamTwo;
+
+        public int getTeam(int uid)
+        {
+            foreach (SelectModel item in teamOne)
+            {
+                if (item.userId == uid)
+                    return 1;
+            }
+            foreach (SelectModel item in teamTwo)
+            {
+                if (item.userId == uid)
+                    return 2;
+            }
+            return -1;
+        }
     }
 }

@@ -4,6 +4,7 @@
 4  * 创建日期：2017/12/21 9:30:47
 5  * ==============================================================================*/
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace LOLServer.tool
         private Timer timer;
         private ConcurrentInteger index = new ConcurrentInteger();
         //等待执行的任务列表
-        private Dictionary<int,TimeTaskModel> mission = new Dictionary<int, TimeTaskModel>();
+        private ConcurrentDictionary<int,TimeTaskModel> mission = new ConcurrentDictionary<int, TimeTaskModel>();
         //等待移除的任务
         private List<int> removeList = new List<int>();
         private ScheduleUtil()
@@ -54,7 +55,8 @@ namespace LOLServer.tool
                 {
                     foreach (int item in removeList)
                     {
-                        mission.Remove(item);
+                        TimeTaskModel model = null;
+                        mission.TryRemove(item,out model);
                     }
                     removeList.Clear();
                     foreach (TimeTaskModel taskModel in mission.Values)
@@ -113,7 +115,7 @@ namespace LOLServer.tool
             {
                 int id = index.GetAndAdd();
                 TimeTaskModel model = new TimeTaskModel(id, task, DateTime.Now.Ticks + delay);
-                mission.Add(id, model);
+                mission.TryAdd(id, model);
                 return id;
             }
             

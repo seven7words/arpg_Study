@@ -8,12 +8,19 @@ public class NetMessageUtil : MonoBehaviour
     private IHandler login;
 
     private IHandler user;
+
+    private IHandler select;
+
+    private IHandler match;
 	// Use this for initialization
 	void Start ()
 	{
 	    login = GetComponentInChildren<LoginHandler>();
         user = GetComponentInChildren<UserHandler>();
-    }
+	    select = GetComponent<SelectHandler>();
+	    match = GetComponentInChildren<MatchHandler>();
+
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -36,6 +43,13 @@ public class NetMessageUtil : MonoBehaviour
             case Protocol.TYPE_USER:
                 user.MessageReceive(model);
                 break;
+            case Protocol.TYPE_SELECT:
+                select.MessageReceive(model);
+                break;
+            case Protocol.TYPE_MATCH:
+                match.MessageReceive(model);
+                break;
+                
         }
     }
 }

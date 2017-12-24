@@ -41,9 +41,7 @@ public class LoginScreen : MonoBehaviour {
         }
         public void LoginOnClick(){
             if(accountInput.text.Length==0||accountInput.text.Length>6){
-                WarningManager.errors.Add(new WarningModel("账号不合法",delegate{
-                    Debug.Log("回调测试");
-                }));
+                WarningManager.errors.Add(new WarningModel("账号不合法"));
                 return;
             }
             if(passwordInput.text.Length==0||passwordInput.text.Length>6){

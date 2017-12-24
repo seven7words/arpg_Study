@@ -253,9 +253,15 @@
     <Compile Include="Assets\Script\Login\LoginScreen.cs" />
     <Compile Include="Assets\Script\Main\CreatePanel.cs" />
     <Compile Include="Assets\Script\Main\MainScreen.cs" />
+    <Compile Include="Assets\Script\Main\MatchHandler.cs" />
     <Compile Include="Assets\Script\MyScriptsForSave\Empty4Raycast.cs" />
     <Compile Include="Assets\Script\NetIO.cs" />
     <Compile Include="Assets\Script\NetMessageUtil.cs" />
+    <Compile Include="Assets\Script\Select\HeroGrid.cs" />
+    <Compile Include="Assets\Script\Select\SelectEventUtil.cs" />
+    <Compile Include="Assets\Script\Select\SelectGrid.cs" />
+    <Compile Include="Assets\Script\Select\SelectHandler.cs" />
+    <Compile Include="Assets\Script\Select\SelectScreen.cs" />
     <Compile Include="Assets\Script\SerializeUtil.cs" />
     <Compile Include="Assets\Script\SocketModel.cs" />
     <Compile Include="Assets\Script\UserHandler.cs" />

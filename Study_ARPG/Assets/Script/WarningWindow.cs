@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +19,14 @@ public class WarningWindow : MonoBehaviour {
     public void Active(WarningModel model){
         text.text = model.value;
         this.result = model.result;
+        if (model.delay > 0)
+        {
+            Invoke("Close", model.delay);
+        }
         gameObject.SetActive(true); 
     }
     public void Close(){
+        if(IsInvoking("Close")) CancelInvoke("Close");
         gameObject.SetActive(false);
         if(result!=null){
             result();

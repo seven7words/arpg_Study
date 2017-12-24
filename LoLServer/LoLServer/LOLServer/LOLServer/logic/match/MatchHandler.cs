@@ -107,6 +107,7 @@ namespace LOLServer.logic.match
             if (!userRoom.ContainsKey(userId))
             {
                 MatchRoom room = null;
+                bool isEnter = false;
                 //当前是否有等待中的房间
                 if (roomMap.Count > 0)
                 {
@@ -126,28 +127,34 @@ namespace LOLServer.logic.match
                             {
                                 room.teamTwo.Add(userId);
                             }
+
                             //添加玩家与房间的映射关系
+                            isEnter = true;
                             userRoom.TryAdd(userId, room.id);
                             break;
                         }
                     }
                     //走到这里说明等待中的房间全部满员了
-                    if (cache.Count > 0)
+                    if (!isEnter)
                     {
-                        cache.TryPop(out room);
-                        room.teamOne.Add(userId);
-                        roomMap.TryAdd(room.id, room);
-                        userRoom.TryAdd(userId, room.id);
+                        if (cache.Count > 0)
+                        {
+                            cache.TryPop(out room);
+                            room.teamOne.Add(userId);
+                            roomMap.TryAdd(room.id, room);
+                            userRoom.TryAdd(userId, room.id);
 
+                        }
+                        else
+                        {
+                            room = new MatchRoom();
+                            room.id = index.GetAndAdd();
+                            room.teamOne.Add(userId);
+                            roomMap.TryAdd(room.id, room);
+                            userRoom.TryAdd(userId, room.id);
+                        }
                     }
-                    else
-                    {
-                        room = new MatchRoom();
-                        room.id = index.GetAndAdd();
-                        room.teamOne.Add(userId);
-                        roomMap.TryAdd(room.id, room);
-                        userRoom.TryAdd(userId, room.id);
-                    }
+                    
                 }
                 else
                 {
@@ -203,7 +210,14 @@ namespace LOLServer.logic.match
                     cache.Push(room);
 
                 }
+                
             }
+            
+        }
+
+        public override byte GetType()
+        {
+            return Protocol.TYPE_MATCH;
         }
     }
 }
