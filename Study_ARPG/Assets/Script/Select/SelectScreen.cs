@@ -46,6 +46,7 @@ public class SelectScreen : MonoBehaviour
     {
         SelectEventUtil.selected = Selected;
         SelectEventUtil.refreshView = RefreshView;
+        SelectEventUtil.selectHero = SelectHero;
         //显示遮罩防止误操作
         initMask.SetActive(true);
         //初始化英雄列表
@@ -149,5 +150,16 @@ public class SelectScreen : MonoBehaviour
     public void Selected()
     {
         ready.interactable = false;
+    }
+
+    public void SelectHero(int id)
+    {
+        this.WriteMessage(Protocol.TYPE_SELECT,0,SelectProtocol.SELECT_CREQ,id);        
+    }
+
+    public void ReadyClick()
+    {
+        this.WriteMessage(Protocol.TYPE_SELECT, 0, SelectProtocol.READY_CREQ, null);
+
     }
 }

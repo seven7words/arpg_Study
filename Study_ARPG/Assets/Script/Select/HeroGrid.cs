@@ -32,6 +32,7 @@ public class HeroGrid : MonoBehaviour
         if (id != -1)
         {
             //处理角色选择事件
+            SelectEventUtil.selectHero(id);
         }
     }
 }

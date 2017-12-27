@@ -160,7 +160,7 @@ namespace LOLServer.logic.select
         private void Ready(UserToken token)
         {
             //判断玩家是否在房间里
-            if (base.isEntered(token))
+            if (!base.isEntered(token))
             {
                 return;
             }
@@ -205,7 +205,7 @@ namespace LOLServer.logic.select
                 missionId = -1;
             }
             //通知战斗模块创建战斗房间
-
+            brocast(SelectProtocol.FIGHT_BRO,null);
             //通知选择房间管理器 销毁当前房间
             EventUtil.destroySelect(GetArea());
         }
@@ -219,11 +219,22 @@ namespace LOLServer.logic.select
             //判断玩家是否拥有此英雄
             UserModel user = getUser(token);
             brocast(SelectProtocol.TALK_BRO,user.name+":"+value);
+            //队伍聊天模式
+            if (teamOne.ContainsKey(user.id))
+            {
+                writeToUsers(teamOne.Keys.ToArray(),GetType(),GetArea(),SelectProtocol.TALK_BRO, user.name + ":" + value);
+            }
+            else
+            {
+                writeToUsers(teamTwo.Keys.ToArray(), GetType(), GetArea(), SelectProtocol.TALK_BRO, user.name + ":" + value);
+
+            }
         }
+        
         private void Select(UserToken token, int value)
         {
             //判断玩家是否在房间里
-            if (base.isEntered(token))
+            if (!base.isEntered(token))
             {
                 return;
             }
