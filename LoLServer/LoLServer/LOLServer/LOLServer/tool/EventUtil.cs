@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameProtocol.DTO;
+
 /// <summary>
 /// 创建选人模块事件
 /// </summary>
@@ -18,6 +20,17 @@ public delegate void CreateSelect(List<int> teamOne,List<int>teamTwo);
 /// </summary>
 /// <param name="roomId"></param>
 public delegate void DestroySelect(int roomId);
+/// <summary>
+/// 创建战斗模块事件
+/// </summary>
+/// <param name="teamOne"></param>
+/// <param name="teamTwo"></param>
+public delegate void CreateFight(SelectModel[] teamOne, SelectModel[] teamTwo);
+/// <summary>
+/// 销毁战斗事件，房间关闭
+/// </summary>
+/// <param name="roomId"></param>
+public delegate void DestroyFight(int roomId);
 namespace LOLServer.tool
 {
     /// <summary>
@@ -27,5 +40,7 @@ namespace LOLServer.tool
     {
         public static CreateSelect createSelect;
         public static DestroySelect destroySelect;
+        public static CreateFight createFight;
+        public static DestroyFight destroyFight;
     }
 }

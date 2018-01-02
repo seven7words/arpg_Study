@@ -6,6 +6,7 @@
 using System;
 using GameProtocol;
 using LOLServer.logic;
+using LOLServer.logic.fight;
 using LOLServer.logic.login;
 using LOLServer.logic.match;
 using LOLServer.logic.@select;
@@ -22,13 +23,14 @@ namespace LOLServer
         private IHandleInterface user;
         private IHandleInterface match;
         private IHandleInterface select;
-
+        private IHandleInterface fight;
         public HandlerCenter()
         {
             login = new LoginHandler();
             user = new UserHandler();
             match = new MatchHandler();
             select = new SelectHandler();
+            fight = new FightHandler();
         }
         public override void ClientClose(UserToken token, string error)
         {
@@ -63,6 +65,9 @@ namespace LOLServer
                     break;
                 case Protocol.TYPE_SELECT:
                     select.MessageReceive(token,model);
+                    break;
+                case Protocol.TYPE_FIGHT:
+                    fight.MessageReceive(token,model);
                     break;
                 default:
                     //未知模块，可能是哭护短作弊，无视

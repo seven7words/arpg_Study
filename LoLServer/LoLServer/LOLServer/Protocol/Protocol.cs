@@ -10,5 +10,6 @@ namespace GameProtocol
         public const byte TYPE_USER = 1;//用户模块
         public const byte TYPE_MATCH = 2;//战斗匹配模块
         public const byte TYPE_SELECT = 3;//战斗选择模块
+        public const byte TYPE_FIGHT = 4;//战斗模块
     }
 }
