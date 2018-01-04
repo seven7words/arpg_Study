@@ -12,6 +12,8 @@ public class NetMessageUtil : MonoBehaviour
     private IHandler select;
 
     private IHandler match;
+
+    private IHandler fight;
 	// Use this for initialization
 	void Start ()
 	{
@@ -19,7 +21,7 @@ public class NetMessageUtil : MonoBehaviour
         user = GetComponentInChildren<UserHandler>();
 	    select = GetComponent<SelectHandler>();
 	    match = GetComponentInChildren<MatchHandler>();
-
+	    fight = GetComponent<FightHandler>();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +50,9 @@ public class NetMessageUtil : MonoBehaviour
                 break;
             case Protocol.TYPE_MATCH:
                 match.MessageReceive(model);
+                break;
+            case Protocol.TYPE_FIGHT:
+                fight.MessageReceive(model);
                 break;
                 
         }
