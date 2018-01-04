@@ -56,6 +56,8 @@
     <Compile Include="HandlerCenter.cs" />
     <Compile Include="logic\AbsMultiHandler.cs" />
     <Compile Include="logic\AbsOnceHandler.cs" />
+    <Compile Include="logic\fight\FightHandler.cs" />
+    <Compile Include="logic\fight\FightRoom.cs" />
     <Compile Include="logic\IHandleInterface.cs" />
     <Compile Include="logic\login\LoginHandler.cs" />
     <Compile Include="logic\match\MatchHandler.cs" />

@@ -76,7 +76,7 @@ namespace LOLServer.logic.select
                 {
                     int temp = 0;
                     userRoom.TryRemove(item, out temp);
-
+                     
                 }
                 foreach (int item in room.teamTwo.Keys)
                 {
@@ -85,6 +85,7 @@ namespace LOLServer.logic.select
 
                 }
                 room.list.Clear();
+                room.readList.Clear();
                 room.teamOne.Clear();
                 room.teamTwo.Clear();
                 //将房间丢进缓存队列，供下次选择使用

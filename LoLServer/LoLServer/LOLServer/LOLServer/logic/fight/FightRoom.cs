@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using GameProtocol;
 using GameProtocol.Constant;
 using GameProtocol.DTO;
 using GameProtocol.DTO.fight;
+using LOLServer.tool;
 using NetFrame;
 
 namespace LOLServer.logic.fight
@@ -22,10 +24,25 @@ namespace LOLServer.logic.fight
     {
         public Dictionary<int,AbsFightModel> teamOne = new Dictionary<int, AbsFightModel>();
         public Dictionary<int,AbsFightModel> teamTwo = new Dictionary<int, AbsFightModel>();
-
+        private ConcurrentInteger enterCount;
+        private List<int> off = new List<int>();
         public void ClientClose(UserToken token, string error)
         {
-            throw new NotImplementedException();
+            leave(token);
+            int userId = getUserId(token);
+            if (teamOne.ContainsKey(userId) || teamTwo.ContainsKey(userId))
+            {
+                if (!off.Contains(userId))
+                {
+                    off.Add(userId);
+                }
+            }
+            if (off.Count == enterCount.get())
+            {
+                EventUtil.destroyFight(GetArea());
+            }
+
+
         }
 
         public void ClientConnect(UserToken token)
@@ -35,11 +52,36 @@ namespace LOLServer.logic.fight
 
         public void MessageReceive(UserToken token, SocketModel message)
         {
-            throw new NotImplementedException();
+            switch (message.command)
+            {
+                case FightProtocol.ENTER_CREQ:
+                    Enter(token);
+                    break;
+            }
+        }
+
+        private void Enter(UserToken token)
+        {
+            if (isEntered(token))
+                return;
+            base.enter(token);
+            enterCount.GetAndReduce();
+            //所有人准备了，发送房间信息
+            if (enterCount.get() == 0)
+            {
+                FightRoomModel room = new FightRoomModel();
+                room.teamOne = teamOne.Values.ToArray();
+                room.teamTwo = teamTwo.Values.ToArray();
+                brocast(FightProtocol.START_BRO,room);
+            }
         }
 
         public void Init(SelectModel[] teamOne, SelectModel[] teamTwo)
         {
+            enterCount = new ConcurrentInteger(teamOne.Length+teamTwo.Length);
+            this.teamOne.Clear();
+            this.teamTwo.Clear();
+            off.Clear();
             //初始化英雄数据
             foreach (var item  in teamOne)
             {
@@ -97,6 +139,8 @@ namespace LOLServer.logic.fight
             player.eyeRange = data.eyeRange;
             player.skills = InitSkill(data.skills);
             player.equs = new int[3];
+            player.type = ModelType.HUMAN;
+            
 
             return player;
         }
@@ -114,5 +158,11 @@ namespace LOLServer.logic.fight
             }
             return skills;
         }
+
+        public override byte GetType()
+        {
+            return GameProtocol.Protocol.TYPE_FIGHT;
+        }
     }
+   
 }

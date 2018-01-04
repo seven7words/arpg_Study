@@ -12,6 +12,7 @@ namespace GameProtocol.DTO.fight
     /// <summary>
     /// FightBuildModel
     /// </summary>
+    [Serializable]
     public class FightBuildModel:AbsFightModel
     {
         public bool born;//是否重生

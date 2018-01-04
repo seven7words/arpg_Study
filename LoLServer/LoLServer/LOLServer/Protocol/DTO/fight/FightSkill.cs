@@ -12,6 +12,7 @@ namespace GameProtocol.DTO.fight
     /// <summary>
     /// FightSkill
     /// </summary>
+    [Serializable]
     public class FightSkill
     {
         public int code;//策划编码

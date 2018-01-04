@@ -12,6 +12,7 @@ namespace GameProtocol.DTO.fight
     /// <summary>
     /// FightPlayerModel
     /// </summary>
+    [Serializable]
     public class FightPlayerModel:AbsFightModel
     {
         public int level;//等级

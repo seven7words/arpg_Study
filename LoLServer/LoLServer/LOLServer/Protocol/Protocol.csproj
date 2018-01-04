@@ -46,10 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant\BuildData.cs" />
+    <Compile Include="Constant\HeroData.cs" />
+    <Compile Include="Constant\SkillData.cs" />
     <Compile Include="DTO\AccountInfoDTO.cs" />
+    <Compile Include="DTO\FightRoomModel.cs" />
+    <Compile Include="DTO\fight\AbsFightModel.cs" />
+    <Compile Include="DTO\fight\FightBuildModel.cs" />
+    <Compile Include="DTO\fight\FightPlayerModel.cs" />
+    <Compile Include="DTO\fight\FightSkill.cs" />
     <Compile Include="DTO\SelectModel.cs" />
     <Compile Include="DTO\SelectRoomDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="FightProtocol.cs" />
     <Compile Include="LoginProtocol.cs" />
     <Compile Include="MatchProtocol.cs" />
     <Compile Include="Protocol.cs" />
@@ -60,5 +69,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

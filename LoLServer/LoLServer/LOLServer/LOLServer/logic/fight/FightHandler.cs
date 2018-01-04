@@ -106,7 +106,12 @@ namespace LOLServer.logic.fight
       
         public void ClientClose(UserToken token, string error)
         {
-            throw new NotImplementedException();
+            //判断玩家是否在某场战斗中
+            if (userRoom.ContainsKey(getUserId(token)))
+            {
+                roomMap[userRoom[getUserId(token)]].ClientClose(token, error);
+
+            }
         }
 
         public void ClientConnect(UserToken token)
@@ -116,7 +121,7 @@ namespace LOLServer.logic.fight
 
         public void MessageReceive(UserToken token, SocketModel message)
         {
-            throw new NotImplementedException();
+           roomMap[userRoom[getUserId(token)]].MessageReceive(token,message);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace GameProtocol.DTO.fight
     /// <summary>
     /// AbsFightModel
     /// </summary>
+    [Serializable]
     public class AbsFightModel
     {
         public int id;//战斗区域中唯一识别码

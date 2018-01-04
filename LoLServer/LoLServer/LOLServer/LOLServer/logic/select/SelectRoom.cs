@@ -27,7 +27,7 @@ namespace LOLServer.logic.select
         private int enterCount = 0;
         //当前定时任务id
         private int missionId = -1;
-        List<int> readList = new List<int>();
+        public List<int> readList = new List<int>();
         public void ClientClose(UserToken token, string error)
         {
             //调用离开方法 让此链接不在接受网络消息
@@ -205,6 +205,7 @@ namespace LOLServer.logic.select
                 missionId = -1;
             }
             //通知战斗模块创建战斗房间
+            EventUtil.createFight(teamOne.Values.ToArray(), teamTwo.Values.ToArray());
             brocast(SelectProtocol.FIGHT_BRO,null);
             //通知选择房间管理器 销毁当前房间
             EventUtil.destroySelect(GetArea());

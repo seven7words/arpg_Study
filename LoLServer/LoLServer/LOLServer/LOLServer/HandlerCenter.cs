@@ -40,6 +40,7 @@ namespace LOLServer
             //如果先清除了绑定关系，其他模块无法获取角色数据会导致无法清理
             select.ClientClose(token,error);
             match.ClientClose(token, error);
+            fight.ClientClose(token,error);
             login.ClientClose(token,error);
             user.ClientClose(token, error);
         }
